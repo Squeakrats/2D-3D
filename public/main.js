@@ -33,12 +33,20 @@ var loadAnimated = function(config) {
 	})
 
 	var frame = 0;
+	var last = Date.now();
 	setInterval(function() {
-		frames[frame++].visible = false;
+		var now = Date.now();
+		var dt = now - last;
+
+		frame = Math.floor(dt/config.time);
 		frame %= frames.length;
+		frames.forEach(function(frame){
+			frame.visible = false;
+		})
 		frames[frame].visible = true;
+
 		config.update(wrapper, config);
-	}, config.time)
+	}, 17);
 
 
 	return wrapper;
@@ -53,11 +61,13 @@ var main = function () {
 	//scene.add(makeAnimated("running_man/sprite_", 1, 8, new THREE.Vector3(0, 0, 0), 100)) ;
 	//scene.add(makeAnimated("pushups/sprite_-", 1, 4, new THREE.Vector3(0, -.4, 0), 200));
 
-	scene.add(loadAnimated({
+	var man = loadAnimated({
 		prefix : "running/sprite_",
 		range : [1, 8],
-		time : 40
-	}))
+		time : 100
+	})
+		man.position.y = -.06;
+	scene.add(man)
 
 	/*
 	scene.add(loadAnimated({
