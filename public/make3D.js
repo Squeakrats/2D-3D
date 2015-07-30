@@ -140,6 +140,7 @@ C3D.fromImage = function (image, props) {
 
 		for(var hex in colors){
 			var material = new THREE.MeshBasicMaterial({ color : colorTable[hex]});
+			colors[hex].computeFaceNormals();
 			object.add(new THREE.Mesh(colors[hex], material));
 		}  
 
@@ -168,21 +169,25 @@ C3D.fromImage = function (image, props) {
 }
 
 
-C3D.fromUrl = function (url, props) {
+C3D.fromUrl = function (url, props, cb) {
 	props = Object.create(props || {});
 	if(!props.object) props.object = new THREE.Object3D();
 
 	var image = new Image();
 		image.onload = function () {
 			C3D.fromImage(this, props);
+			if(cb) cb();
 		}
 		image.src = url;
 	return props.object;
 }
 
-C3D.fromUrls = function(urls, props) {
+C3D.fromUrls = function(urls, props, cb) {
+	var loaded = 0, toLoad = urls.length
 	return urls.map(function(url) {
-		return C3D.fromUrl(url, props);
+		return C3D.fromUrl(url, props, function () {
+			if(toLoad == ++loaded && cb) cb();
+		});
 	})
 }
 

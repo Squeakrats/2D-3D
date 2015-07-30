@@ -15,7 +15,7 @@ var init = function (ground) {
 
 	camera =  new THREE.PerspectiveCamera(45, window.innerWidth/ window.innerHeight, .01, 100);
 	
-	camera.position.z = 2;
+	camera.position.z = 3;
 	camera.position.y = 0;
 
 
@@ -28,6 +28,8 @@ var init = function (ground) {
 		plane.material.side = THREE.DoubleSide;
 		plane.position.y = -.57;
 		plane.rotation.x = Math.PI/2;
+		plane.scale.y = 500
+		plane.scale.x = 500;
 		scene.add(plane);
 	}
 	
