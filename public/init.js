@@ -24,7 +24,7 @@ var init = function (ground) {
 
 
 	if(ground){
-		var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 1), new THREE.MeshBasicMaterial({color : new THREE.Color("rgb(139,69,19)")}));
+		var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 1), new THREE.MeshBasicMaterial({color : new THREE.Color(0xffd500)}));
 		plane.material.side = THREE.DoubleSide;
 		plane.position.y = -.57;
 		plane.rotation.x = Math.PI/2;
